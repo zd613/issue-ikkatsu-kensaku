@@ -20,6 +20,7 @@
 </template>
 
 <script lang="ts" setup>
+import axios from "axios"
 
 function loadText(file: File): Promise<string> {
     const reader = new FileReader()
@@ -39,6 +40,41 @@ function loadText(file: File): Promise<string> {
         reader.readAsText(file)
     })
 }
+
+// npm.jsのregistry情報を取得する
+const fetchRegistryData = async (libraryName: string) => {
+    const endpoint = `https://cors-anywhere-iik.herokuapp.com/https://registry.npmjs.org/${libraryName}/latest`
+
+    const { data } = await axios.get(endpoint)
+
+    const version = data.version
+    const repository = data.repository as { type: string; url: string }
+    console.log(version)
+    console.log(repository)
+    if (repository.type === 'git') {
+    const tmp = repository.url
+    // urlになってないので直す
+    const toUrl = (repoUrl: string) => {
+        // はじめの git+を削除
+        // うしろの.gitを削除
+        return repoUrl.replace('git+', '').replace('.git', '')
+    }
+    const url = toUrl(tmp)
+
+    const getOwnerAndRepoName = (repositoryUrl: string) => {
+        // TODO: 最後に/がついているとき
+        const split = repositoryUrl.split('/')
+        const length = split.length
+        return [split[length - 2], split[length - 1]] // 後ろから2番目と一番後ろ
+    }
+
+    const [owner, repo] = getOwnerAndRepoName(url)
+    return { owner, repoName: repo }
+    }
+    return { owner: '', repoName: '' }
+}
+
+
 
 
 const dep=ref("")
@@ -62,6 +98,10 @@ async function handleFileChange(event: Event) {
     for (const [libName, version] of Object.entries(dependencies)) {
         console.log(libName + ':' + version)
         dep.value=libName+":"+version
+
+        // npm のregistryから探す
+        const { owner, repoName } = await fetchRegistryData(libName)
+        console.log({owner,repoName})
 
         // １個だけで試す
         break
