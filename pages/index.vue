@@ -11,7 +11,16 @@
         <div v-if="dep!==''">
             {{dep}}
         </div>
-
+        <div class="bg-gray-100">
+            <div v-for="(item, index) in issues" :key="index">
+                <a :href="item.html_url" target="_blank">
+                <div class="inline-block">
+                    {{ item.title }}
+                </div>
+                <div class="inline">({{ item.state }})</div>
+                </a>
+            </div>
+        </div>
       </article>
     </main>
 
@@ -77,6 +86,33 @@ const fetchRegistryData = async (libraryName: string) => {
 
 
 
+async function fetchIssues(
+    owner: string,
+    repo: string,
+    word: string,
+    page = 1
+) {
+    const { data } = await axios.get('https://api.github.com/search/issues', {
+    params: {
+        q: `repo:${owner}/${repo} is:issue ${word}`,
+        per_page: 30,
+        page: page,
+    },
+    })
+
+    return data
+}
+
+
+interface IssueItem {
+    html_url: string
+    title: string
+    state: string
+}
+
+
+const issues=ref([] as IssueItem[])
+
 const dep=ref("")
 
 async function handleFileChange(event: Event) {
@@ -102,6 +138,14 @@ async function handleFileChange(event: Event) {
         // npm のregistryから探す
         const { owner, repoName } = await fetchRegistryData(libName)
         console.log({owner,repoName})
+        
+        // issueを取得する
+        let page = 1
+        let word = 'test' // 検索ワード
+        const issuesData = await fetchIssues(owner, repoName, word, page)
+        console.log(issuesData)
+
+        issues.value = issuesData.items
 
         // １個だけで試す
         break
