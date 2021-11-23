@@ -32,6 +32,10 @@
 import { IssueInfo } from "~~/interfaces/IssueInfo";
 import { RepositoryInfo } from "~~/interfaces/RepositoryInfo";
 import FileSelector from "~~/components/FileSelector.vue";
+import {
+  fetchRegistryData,
+  loadDependenciesAndDevDependencies,
+} from "~~/lib/search";
 
 const repositoryList: RepositoryInfo[] = [
   {
@@ -53,11 +57,31 @@ const issueList: IssueInfo[] = [
   },
 ];
 
-const selectedFile = ref<File | null>(null);
-
 // 検索を実行する
-const search = () => {};
+const repositories = ref<RepositoryInfo[]>([]);
+const search = async (file: File) => {
+  // dependencisとdevDependencies取得
+  const { dependencies, devDependencies } =
+    await loadDependenciesAndDevDependencies(file);
 
+  console.log(dependencies);
+  console.log(devDependencies);
+
+  let libraryName = "";
+  for (const [libName, libVersion] of Object.entries(dependencies)) {
+    libraryName = libName;
+    // TODO: あとで変更。1つだけでテストする
+    break;
+  }
+  // リポジトリ名を検索
+
+  const registryData = await fetchRegistryData(libraryName);
+  console.log(registryData);
+
+  // リポジトリからissueを検索
+};
+
+const selectedFile = ref<File | null>(null);
 // 検索されたとき
 const handleSearch = (e) => {
   console.log("e");
@@ -69,6 +93,6 @@ const handleSearch = (e) => {
     return;
   }
 
-  search();
+  search(selectedFile.value);
 };
 </script>
