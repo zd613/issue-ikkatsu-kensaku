@@ -3,6 +3,7 @@
     <a :href="issue.url" target="_blank">
       <div>{{ issue.title }}</div>
       <div>ステータス: {{ issue.state }}</div>
+      <div>updatedAt: {{ issue.updatedAt }}</div>
     </a>
   </div>
 </template>

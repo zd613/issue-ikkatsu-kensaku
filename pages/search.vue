@@ -78,13 +78,15 @@ const search = async (file: File) => {
   console.log("done");
   console.log(repoIssues);
 
-  // TODO: Issue infoにurl追加
   // TODO: 試しに1つだけ表示しているので、すべて表示させる
   const repoIssue = repoIssues.items[0];
+  console.log(repoIssue);
+  console.log(repoIssue.updated_at);
   const issueInfo: IssueInfo = {
     title: repoIssue.title,
     url: repoIssue.html_url,
     state: repoIssue.state,
+    updatedAt: repoIssue.updated_at,
   };
 
   issues.value.push(issueInfo);
