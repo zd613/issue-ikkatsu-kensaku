@@ -76,18 +76,18 @@ const search = async (file: File, searchWord: string) => {
   console.log("done");
   console.log(repoIssues);
 
-  // TODO: 試しに1つだけ表示しているので、すべて表示させる
-  const repoIssue = repoIssues.items[0];
-  console.log(repoIssue);
-  console.log(repoIssue.updated_at);
-  const issueInfo: IssueInfo = {
-    title: repoIssue.title,
-    url: repoIssue.html_url,
-    state: repoIssue.state,
-    updatedAt: repoIssue.updated_at,
-  };
-
-  issues.value.push(issueInfo);
+  // 取得したissueを表示させる
+  // TODO: すべてのissueを表示しているわけではないので、すべて見れるようにページ処理追加する。total_count,incomplete_results参考にする
+  const issueInfoList = repoIssues.items.map((item) => {
+    return {
+      title: item.title,
+      url: item.html_url,
+      state: item.state,
+      updatedAt: item.updated_at,
+    } as IssueInfo;
+  });
+  console.log(issueInfoList);
+  issues.value.push(...issueInfoList);
 };
 
 const selectedFile = ref<File | null>(null);
