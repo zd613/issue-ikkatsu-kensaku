@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="border border-gray-800 p-2">
     <a :href="issue.url" target="_blank">
       <div>{{ issue.title }}</div>
       <div>ステータス: {{ issue.state }}</div>

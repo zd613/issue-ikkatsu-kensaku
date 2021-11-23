@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="border-2 border-gray-400 p-2">
     <div v-for="(issue, index) in issues" :key="index">
       <IssueItem :issue="issue" />
     </div>
