@@ -61,7 +61,6 @@ const search = async (file: File) => {
   const registryData = await fetchRegistryData(libraryName);
   repositories.value.push({
     name: `${registryData.owner}/${registryData.repoName}`,
-    url: "", // TODO: urlはいらない。クリックした時に、issue一覧の検索結果の表示を選択したrepositoryのもにに変更したい
   });
 
   console.log(registryData);
