@@ -1,9 +1,9 @@
 <template>
-  <nuxt-link :to="repository.url">
+  <div>
     <div class="border border-gray-500 p-1">
       <div>{{ repository.name }}</div>
     </div>
-  </nuxt-link>
+  </div>
 </template>
 
 <script setup lang="ts">
