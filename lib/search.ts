@@ -19,6 +19,20 @@ export function loadText(file: File): Promise<string> {
   });
 }
 
+export async function loadDependenciesAndDevDependencies(file: File) {
+  const text = await loadText(file);
+  const json = JSON.parse(text);
+
+  // package.jsonのdependencies,devDependencisを取得する
+  const dependencies = json.dependencies as Record<string, string>;
+  const devDependencies = json.devDependencies as Record<string, string>;
+
+  return {
+    dependencies,
+    devDependencies,
+  };
+}
+
 // npm.jsのregistry情報を取得する
 export async function fetchRegistryData(libraryName: string) {
   const endpoint = `https://cors-anywhere-iik.herokuapp.com/https://registry.npmjs.org/${libraryName}/latest`;
