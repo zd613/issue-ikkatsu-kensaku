@@ -1,5 +1,5 @@
 <template>
-  <div class="border-2 border-gray-800 p-2 w-80">
+  <div class="border-2 border-gray-800 p-2">
     <div v-for="(item, index) in props.repositories">
       <RepositoryItem :repository="item" />
     </div>
