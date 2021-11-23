@@ -10,7 +10,7 @@
           <FileSelector v-model:file="selectedFile" />
         </div>
         <div>
-          <RepositoryList :repositories="repositoryList" />
+          <RepositoryList :repositories="repositories" />
         </div>
       </div>
 
@@ -36,17 +36,6 @@ import {
   fetchRegistryData,
   loadDependenciesAndDevDependencies,
 } from "~~/lib/search";
-
-const repositoryList: RepositoryInfo[] = [
-  {
-    name: "hi",
-    url: "",
-  },
-  {
-    name: "hello",
-    url: "",
-  },
-];
 
 const issueList: IssueInfo[] = [
   {
@@ -77,6 +66,11 @@ const search = async (file: File) => {
   // リポジトリ名を検索
 
   const registryData = await fetchRegistryData(libraryName);
+  repositories.value.push({
+    name: `${registryData.owner}/${registryData.repoName}`,
+    url: "", // TODO: urlはいらない。クリックした時に、issue一覧の検索結果の表示を選択したrepositoryのもにに変更したい
+  });
+
   console.log(registryData);
 
   // リポジトリからissueを検索
