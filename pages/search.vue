@@ -83,7 +83,8 @@ const search = async (file: File) => {
   const repoIssue = repoIssues.items[0];
   const issueInfo: IssueInfo = {
     title: repoIssue.title,
-    // url: repoIssue.html_url,
+    url: repoIssue.html_url,
+    state: repoIssue.state,
   };
 
   issues.value.push(issueInfo);

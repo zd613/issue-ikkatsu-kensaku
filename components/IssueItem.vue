@@ -1,5 +1,10 @@
 <template>
-  <div>{{ issue.title }}</div>
+  <div>
+    <a :href="issue.url" target="_blank">
+      <div>{{ issue.title }}</div>
+      <div>ステータス: {{ issue.state }}</div>
+    </a>
+  </div>
 </template>
 
 <script setup lang="ts">
