@@ -4,7 +4,7 @@
       <div class="w-64 p-3">
         <h1 class="font-bold text-2xl p-1 text-gray-800 my-4">Issue一括検索</h1>
         <div class="my-2">
-          <SearchBox />
+          <SearchBox @search="handleSearch" />
         </div>
         <div class="my-6">
           <FileSelector v-model:file="selectedFile" />
@@ -54,4 +54,21 @@ const issueList: IssueInfo[] = [
 ];
 
 const selectedFile = ref<File | null>(null);
+
+// 検索を実行する
+const search = () => {};
+
+// 検索されたとき
+const handleSearch = (e) => {
+  console.log("e");
+  console.log(e);
+
+  // package.jsonのファイルが選択されていねければ、そのことを表示
+  if (selectedFile.value === null) {
+    alert("package.jsonファイルを選択されていません。選択してください。");
+    return;
+  }
+
+  search();
+};
 </script>
