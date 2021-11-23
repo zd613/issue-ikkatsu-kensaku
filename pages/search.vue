@@ -19,7 +19,7 @@
           <h2 class="font-bold text-3xl text-gray-800">検索結果</h2>
 
           <div class="mt-12">
-            <IssueList :issues="issueList" />
+            <IssueList :issues="issues" />
           </div>
         </div>
       </div>
@@ -33,21 +33,14 @@ import { IssueInfo } from "~~/interfaces/issueInfo";
 import { RepositoryInfo } from "~~/interfaces/repositoryInfo";
 import FileSelector from "~~/components/FileSelector.vue";
 import {
+  fetchIssues,
   fetchRegistryData,
   loadDependenciesAndDevDependencies,
 } from "~~/lib/search";
 
-const issueList: IssueInfo[] = [
-  {
-    title: "issue1",
-  },
-  {
-    title: "issue2",
-  },
-];
-
 // 検索を実行する
 const repositories = ref<RepositoryInfo[]>([]);
+const issues = ref<IssueInfo[]>([]);
 const search = async (file: File) => {
   // dependencisとdevDependencies取得
   const { dependencies, devDependencies } =
@@ -74,11 +67,35 @@ const search = async (file: File) => {
   console.log(registryData);
 
   // リポジトリからissueを検索
+  // TODO: 検索ワードを入力したもの使うようにする
+  const page = 1; // TODO: ページ変更できるようにする
+  const repoIssues = await fetchIssues(
+    registryData.owner,
+    registryData.repoName,
+    "test",
+    page
+  );
+  console.log("done");
+  console.log(repoIssues);
+
+  // TODO: Issue infoにurl追加
+  // TODO: 試しに1つだけ表示しているので、すべて表示させる
+  const repoIssue = repoIssues.items[0];
+  const issueInfo: IssueInfo = {
+    title: repoIssue.title,
+    // url: repoIssue.html_url,
+  };
+
+  issues.value.push(issueInfo);
 };
 
 const selectedFile = ref<File | null>(null);
 // 検索されたとき
 const handleSearch = (e) => {
+  // データ初期化
+  repositories.value = [];
+  issues.value = [];
+
   console.log("e");
   console.log(e);
 
