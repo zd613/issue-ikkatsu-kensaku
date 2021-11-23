@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "prettier:write": "npx prettier --write .",
+    "prettier:check": "npx prettier --check ."
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",
