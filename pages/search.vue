@@ -15,10 +15,12 @@
       </div>
 
       <div class="w-full h-full p-3">
-        <div class="flex flex-col items-center justify-center w-4/5 mx-auto">
+        <div
+          class="flex flex-col items-center justify-center w-4/5 h-full mx-auto"
+        >
           <h2 class="font-bold text-3xl text-gray-800">検索結果</h2>
 
-          <div class="mt-12">
+          <div class="mt-12 overflow-y-auto">
             <IssueList :issues="issues" />
           </div>
         </div>
