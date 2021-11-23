@@ -7,7 +7,7 @@
           <SearchBox />
         </div>
         <div class="my-6">
-          <FileSelector />
+          <FileSelector v-model:file="selectedFile" />
         </div>
         <div>
           <RepositoryList :repositories="repositoryList" />
@@ -24,6 +24,7 @@
         </div>
       </div>
     </div>
+    {{ selectedFile?.name ?? "not selected" }}
   </div>
 </template>
 
@@ -51,4 +52,6 @@ const issueList: IssueInfo[] = [
     title: "issue2",
   },
 ];
+
+const selectedFile = ref<File | null>(null);
 </script>
