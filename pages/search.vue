@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { IssueInfo } from "~~/interfaces/IssueInfo";
-import { RepositoryInfo } from "~~/interfaces/RepositoryInfo";
+import { IssueInfo } from "~~/interfaces/issueInfo";
+import { RepositoryInfo } from "~~/interfaces/repositoryInfo";
 import FileSelector from "~~/components/FileSelector.vue";
 import {
   fetchRegistryData,
@@ -70,6 +70,7 @@ const search = async (file: File) => {
   let libraryName = "";
   for (const [libName, libVersion] of Object.entries(dependencies)) {
     libraryName = libName;
+    // repositories.value.push()
     // TODO: あとで変更。1つだけでテストする
     break;
   }

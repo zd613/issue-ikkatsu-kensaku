@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { PropType } from "vue";
-import { IssueInfo } from "~~/interfaces/IssueInfo";
+import { IssueInfo } from "~~/interfaces/issueInfo";
 
 defineProps({
   issue: {

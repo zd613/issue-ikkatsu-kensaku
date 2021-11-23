@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { PropType } from "vue";
-import { RepositoryInfo } from "@/interfaces/RepositoryInfo";
+import { RepositoryInfo } from "~~/interfaces/repositoryInfo";
 
 const props = defineProps({
   repositories: {
