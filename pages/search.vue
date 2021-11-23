@@ -4,6 +4,7 @@
 
     <div>
       <SearchBox />
+      <FileSelector />
       <div>
         <RepositoryList :repositories="repositoryList" />
       </div>
@@ -18,6 +19,7 @@
 <script setup lang="ts">
 import { IssueInfo } from "~~/interfaces/IssueInfo";
 import { RepositoryInfo } from "~~/interfaces/RepositoryInfo";
+import FileSelector from "~~/components/FileSelector.vue";
 
 const repositoryList: RepositoryInfo[] = [
   {
