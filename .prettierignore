@@ -1,2 +1,6 @@
 build
 coverage
+
+package-lock.json
+.nuxt
+node_modules
