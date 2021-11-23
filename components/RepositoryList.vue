@@ -3,6 +3,7 @@
     <div
       v-for="(item, index) in props.repositories"
       :key="'repo-item-' + index"
+      class="cursor-pointer"
     >
       <RepositoryItem :repository="item" />
     </div>
