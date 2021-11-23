@@ -1,6 +1,9 @@
 <template>
   <div class="border-2 border-gray-800 p-2">
-    <div v-for="(item, index) in props.repositories">
+    <div
+      v-for="(item, index) in props.repositories"
+      :key="'repo-item-' + index"
+    >
       <RepositoryItem :repository="item" />
     </div>
   </div>

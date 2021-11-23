@@ -10,9 +10,9 @@ import IconSearch from "./IconSearch.vue";
 const searchWord = ref("");
 
 const emits = defineEmits<{
-  (e: "search", event: Event);
+  (e: "search", event: Event, searchWord: string);
 }>();
 const handleClick = (e) => {
-  emits("search", e);
+  emits("search", e, searchWord.value);
 };
 </script>

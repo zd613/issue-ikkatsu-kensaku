@@ -41,7 +41,7 @@ import {
 // 検索を実行する
 const repositories = ref<RepositoryInfo[]>([]);
 const issues = ref<IssueInfo[]>([]);
-const search = async (file: File) => {
+const search = async (file: File, searchWord: string) => {
   // dependencisとdevDependencies取得
   const { dependencies, devDependencies } =
     await loadDependenciesAndDevDependencies(file);
@@ -66,12 +66,11 @@ const search = async (file: File) => {
   console.log(registryData);
 
   // リポジトリからissueを検索
-  // TODO: 検索ワードを入力したもの使うようにする
   const page = 1; // TODO: ページ変更できるようにする
   const repoIssues = await fetchIssues(
     registryData.owner,
     registryData.repoName,
-    "test",
+    searchWord,
     page
   );
   console.log("done");
@@ -93,13 +92,14 @@ const search = async (file: File) => {
 
 const selectedFile = ref<File | null>(null);
 // 検索されたとき
-const handleSearch = (e) => {
+const handleSearch = (e, searchWord: string) => {
   // データ初期化
   repositories.value = [];
   issues.value = [];
 
   console.log("e");
   console.log(e);
+  console.log(searchWord);
 
   // package.jsonのファイルが選択されていねければ、そのことを表示
   if (selectedFile.value === null) {
@@ -107,6 +107,6 @@ const handleSearch = (e) => {
     return;
   }
 
-  search(selectedFile.value);
+  search(selectedFile.value, searchWord);
 };
 </script>
