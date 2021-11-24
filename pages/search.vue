@@ -26,7 +26,6 @@
         </div>
       </div>
     </div>
-    {{ selectedFile?.name ?? "not selected" }}
   </div>
 </template>
 
