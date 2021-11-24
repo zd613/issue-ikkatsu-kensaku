@@ -16,7 +16,7 @@
 
       <div class="w-full h-full p-3">
         <div
-          class="flex flex-col items-center justify-center w-4/5 h-full mx-auto"
+          class="flex flex-col items-center justify-start w-4/5 h-full mx-auto"
         >
           <h2 class="font-bold text-3xl text-gray-800">検索結果</h2>
 
