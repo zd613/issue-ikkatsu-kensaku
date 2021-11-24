@@ -55,8 +55,7 @@ const search = async (file: File, searchWord: string) => {
   let firstRegistryData = null;
   for (const [libName, libVersion] of Object.entries(dependencies)) {
     libraryName = libName;
-    // repositories.value.push()
-    // TODO: あとで変更。1つだけでテストする
+    // TODO: ライブラリのバージョンも考慮する？
     const registryData = await fetchRegistryData(libraryName);
     repositories.value.push({
       name: `${registryData.owner}/${registryData.repoName}`,
