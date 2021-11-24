@@ -11,13 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from "vue";
 import { RepositoryInfo } from "~~/interfaces/repositoryInfo";
 
-const props = defineProps({
-  repositories: {
-    type: Array as PropType<RepositoryInfo[]>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  repositories: RepositoryInfo[];
+}>();
 </script>

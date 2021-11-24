@@ -7,9 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from "vue";
 import { IssueInfo } from "~~/interfaces/issueInfo";
-defineProps({
-  issues: Array as PropType<IssueInfo[]>,
-});
+defineProps<{
+  issues: IssueInfo[];
+}>();
 </script>

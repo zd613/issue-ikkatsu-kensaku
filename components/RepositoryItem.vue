@@ -7,13 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from "vue";
 import { RepositoryInfo } from "~~/interfaces/repositoryInfo";
 
-const props = defineProps({
-  repository: {
-    type: Object as PropType<RepositoryInfo>,
-    required: true,
-  },
-});
+defineProps<{
+  repository: RepositoryInfo;
+}>();
 </script>

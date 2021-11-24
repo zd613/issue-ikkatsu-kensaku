@@ -9,15 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from "vue";
 import { IssueInfo } from "~~/interfaces/issueInfo";
 import { format } from "date-fns";
-const props = defineProps({
-  issue: {
-    type: Object as PropType<IssueInfo>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  issue: IssueInfo;
+}>();
 
 const formatUpdatedAt = computed(() => {
   const date = new Date(props.issue.updatedAt);
