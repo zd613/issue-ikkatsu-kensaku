@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineComponent<{
+const props = defineProps<{
   file: File | null;
 }>();
 
