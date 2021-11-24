@@ -52,26 +52,30 @@ const search = async (file: File, searchWord: string) => {
   console.log(devDependencies);
 
   let libraryName = "";
+  let firstRegistryData = null;
   for (const [libName, libVersion] of Object.entries(dependencies)) {
     libraryName = libName;
     // repositories.value.push()
     // TODO: あとで変更。1つだけでテストする
-    break;
+    const registryData = await fetchRegistryData(libraryName);
+    repositories.value.push({
+      name: `${registryData.owner}/${registryData.repoName}`,
+    });
+
+    // 最初のデータを保持しておく
+    if (firstRegistryData === null) {
+      firstRegistryData = registryData;
+    }
   }
   // リポジトリ名を検索
 
-  const registryData = await fetchRegistryData(libraryName);
-  repositories.value.push({
-    name: `${registryData.owner}/${registryData.repoName}`,
-  });
-
-  console.log(registryData);
+  console.log(firstRegistryData);
 
   // リポジトリからissueを検索
   const page = 1; // TODO: ページ変更できるようにする
   const repoIssues = await fetchIssues(
-    registryData.owner,
-    registryData.repoName,
+    firstRegistryData.owner,
+    firstRegistryData.repoName,
     searchWord,
     page
   );
