@@ -1,15 +1,17 @@
 <template>
   <div class="bg-blue-200 h-screen">
     <div class="flex flex-row h-full">
-      <div class="w-64 p-3">
-        <h1 class="font-bold text-2xl p-1 text-gray-800 my-4">Issue一括検索</h1>
+      <div class="w-64 p-3 h-full">
+        <h1 class="font-bold text-2xl p-1 text-gray-800 my-4 flex-col">
+          Issue一括検索
+        </h1>
         <div class="my-2">
           <SearchBox @search="handleSearch" />
         </div>
         <div class="my-6">
           <FileSelector v-model:file="selectedFile" />
         </div>
-        <div>
+        <div class="overflow-y-auto h-3/5">
           <RepositoryList :repositories="repositories" />
         </div>
       </div>
@@ -56,6 +58,7 @@ const search = async (file: File, searchWord: string) => {
     libraryName = libName;
     // TODO: ライブラリのバージョンも考慮する？
     const registryData = await fetchRegistryData(libraryName);
+
     repositories.value.push({
       name: `${registryData.owner}/${registryData.repoName}`,
     });
@@ -87,7 +90,9 @@ const search = async (file: File, searchWord: string) => {
       title: item.title,
       url: item.html_url,
       state: item.state,
+      createdAt: item.created_at,
       updatedAt: item.updated_at,
+      body: item.body,
     } as IssueInfo;
   });
   console.log(issueInfoList);
