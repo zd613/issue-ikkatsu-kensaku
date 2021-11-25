@@ -3,13 +3,9 @@
     <a :href="issue.url" target="_blank">
       <div>{{ issue.title }}</div>
       <div>ステータス: {{ issue.state }}</div>
+      <div>createdAt: {{ formatCreatedAt }}</div>
       <div>updatedAt: {{ formatUpdatedAt }}</div>
-      <!-- <div>
-        {{ issue.updatedAt }}
-      </div> -->
-      <!-- <div>
-        {{ new Date(issue.updatedAt).getTimezoneOffset() }}
-      </div> -->
+      <!-- <div v-html="issue.body"></div> -->
     </a>
   </div>
 </template>
@@ -21,8 +17,15 @@ const props = defineProps<{
   issue: IssueInfo;
 }>();
 
+const formatDate = (date: string) => {
+  const d = new Date(date);
+  return format(d, "yyyy/MM/dd kk-mm-ss");
+};
+
+const formatCreatedAt = computed(() => {
+  return formatDate(props.issue.createdAt);
+});
 const formatUpdatedAt = computed(() => {
-  const date = new Date(props.issue.updatedAt);
-  return format(date, "yyyy/MM/dd kk-mm-ss");
+  return formatDate(props.issue.updatedAt);
 });
 </script>
