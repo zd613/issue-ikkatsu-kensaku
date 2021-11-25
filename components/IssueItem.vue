@@ -4,6 +4,12 @@
       <div>{{ issue.title }}</div>
       <div>ステータス: {{ issue.state }}</div>
       <div>updatedAt: {{ formatUpdatedAt }}</div>
+      <!-- <div>
+        {{ issue.updatedAt }}
+      </div> -->
+      <!-- <div>
+        {{ new Date(issue.updatedAt).getTimezoneOffset() }}
+      </div> -->
     </a>
   </div>
 </template>
@@ -17,9 +23,6 @@ const props = defineProps<{
 
 const formatUpdatedAt = computed(() => {
   const date = new Date(props.issue.updatedAt);
-  //yyyy-MM-dd'T'HH:mm:ss.SSSxxx
-  // TODO: 時間表示する
-  // TODO: JSTにする？
-  return format(date, "yyyy/MM/dd");
+  return format(date, "yyyy/MM/dd kk-mm-ss");
 });
 </script>
