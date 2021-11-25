@@ -12,7 +12,10 @@
           <FileSelector v-model:file="selectedFile" />
         </div>
         <div class="overflow-y-auto h-3/5">
-          <RepositoryList :repositories="repositories" />
+          <RepositoryList
+            :repositories="repositories"
+            @change:selected-repository="handleSelectedRepositoryChange"
+          />
         </div>
       </div>
 
@@ -71,15 +74,24 @@ const search = async (file: File, searchWord: string) => {
   // リポジトリ名を検索
 
   console.log(firstRegistryData);
-
-  // リポジトリからissueを検索
   const page = 1; // TODO: ページ変更できるようにする
-  const repoIssues = await fetchIssues(
+
+  await searchAndShowIssues(
     firstRegistryData.owner,
     firstRegistryData.repoName,
     searchWord,
     page
   );
+};
+
+const searchAndShowIssues = async (
+  owner: string,
+  repoName: string,
+  searchWord: string,
+  page: number
+) => {
+  // リポジトリからissueを検索
+  const repoIssues = await fetchIssues(owner, repoName, searchWord, page);
   console.log("done");
   console.log(repoIssues);
 
@@ -117,5 +129,25 @@ const handleSearch = (e, searchWord: string) => {
   }
 
   search(selectedFile.value, searchWord);
+};
+
+const selectedRepoIndex = ref(0);
+
+const handleSelectedRepositoryChange = async (repoName: string) => {
+  console.log("リポジトリ選択変更:" + repoName);
+  // issueの表示クリア
+  issues.value = [];
+
+  const newSelectedIndex = repositories.value.findIndex((elem) => {
+    return elem.name === repoName;
+  });
+  selectedRepoIndex.value = newSelectedIndex;
+
+  // TODO: 検索ワード必要
+  const searchWord = "test";
+  // TODO: 変数名が owner/repoName で repoNameになっている？
+  const [owner, name] = repoName.split("/");
+  const page = 1;
+  await searchAndShowIssues(owner, name, searchWord, page);
 };
 </script>
