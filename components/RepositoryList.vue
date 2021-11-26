@@ -6,7 +6,10 @@
       class="cursor-pointer"
       @click="onClick(index)"
     >
-      <RepositoryItem :repository="item" />
+      <RepositoryItem
+        :repository="item"
+        :active="activeIndex === null ? false : index === activeIndex"
+      />
     </div>
   </div>
 </template>
@@ -14,9 +17,13 @@
 <script setup lang="ts">
 import { RepositoryInfo } from "~~/interfaces/repositoryInfo";
 
-const props = defineProps<{
-  repositories: RepositoryInfo[];
-}>();
+const props = withDefaults(
+  defineProps<{
+    repositories: RepositoryInfo[];
+    activeIndex?: number | null;
+  }>(),
+  { activeIndex: null }
+);
 
 const emits = defineEmits<{
   (e: "change:selected-repository", reopName: string);

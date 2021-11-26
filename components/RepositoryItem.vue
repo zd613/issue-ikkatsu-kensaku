@@ -1,7 +1,21 @@
 <template>
   <div>
-    <div class="border border-gray-500 p-1 hover:bg-blue-300">
-      <div>{{ repository.name }}</div>
+    <div class="border border-gray-500 p-1 hover:bg-blue-300 flex flex-row">
+      <div class="flex-grow">{{ repository.name }}</div>
+      <div v-if="active" class="flex-grow-0">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </template>
@@ -9,7 +23,13 @@
 <script setup lang="ts">
 import { RepositoryInfo } from "~~/interfaces/repositoryInfo";
 
-defineProps<{
-  repository: RepositoryInfo;
-}>();
+withDefaults(
+  defineProps<{
+    repository: RepositoryInfo;
+    active?: boolean;
+  }>(),
+  {
+    active: true,
+  }
+);
 </script>

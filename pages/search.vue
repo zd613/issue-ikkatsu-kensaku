@@ -14,6 +14,7 @@
         <div class="overflow-y-auto h-3/5">
           <RepositoryList
             :repositories="repositories"
+            :active-index="selectedRepoIndex"
             @change:selected-repository="handleSelectedRepositoryChange"
           />
         </div>
