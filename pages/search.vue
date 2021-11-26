@@ -6,7 +6,7 @@
           Issue一括検索
         </h1>
         <div class="my-2">
-          <SearchBox @search="handleSearch" />
+          <SearchBox @search="handleSearch" v-model="searchWord" />
         </div>
         <div class="my-6">
           <FileSelector v-model:file="selectedFile" />
@@ -83,7 +83,7 @@ const search = async (file: File, searchWord: string) => {
     page
   );
 };
-
+const searchWord = ref("");
 const searchAndShowIssues = async (
   owner: string,
   repoName: string,
@@ -143,11 +143,9 @@ const handleSelectedRepositoryChange = async (repoName: string) => {
   });
   selectedRepoIndex.value = newSelectedIndex;
 
-  // TODO: 検索ワード必要
-  const searchWord = "test";
   // TODO: 変数名が owner/repoName で repoNameになっている？
   const [owner, name] = repoName.split("/");
   const page = 1;
-  await searchAndShowIssues(owner, name, searchWord, page);
+  await searchAndShowIssues(owner, name, searchWord.value, page);
 };
 </script>
