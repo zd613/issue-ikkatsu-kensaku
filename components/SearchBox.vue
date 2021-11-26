@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import IconSearch from "./IconSearch.vue";
-const word = ref("");
 
 const props = defineProps<{
   modelValue: string;
@@ -23,7 +22,7 @@ const emits = defineEmits<{
   (e: "update:modelValue", searchWord: string);
 }>();
 const search = (e) => {
-  emits("search", e, word.value);
+  emits("search", e, internalSearchWord.value);
 };
 
 const internalSearchWord = computed({
