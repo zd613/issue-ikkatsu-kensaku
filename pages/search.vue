@@ -114,19 +114,21 @@ const searchAndShowIssues = async (
 const selectedFile = ref<File | null>(null);
 // 検索されたとき
 const handleSearch = (e, searchWord: string) => {
-  // データ初期化
-  repositories.value = [];
-  issues.value = [];
-
-  console.log("e");
-  console.log(e);
-  console.log(searchWord);
-
   // package.jsonのファイルが選択されていねければ、そのことを表示
   if (selectedFile.value === null) {
     alert("package.jsonファイルを選択されていません。選択してください。");
     return;
   }
+
+  // 検索ワードが記入されていない時に入力するように表示する
+  if (searchWord === "") {
+    alert("検索ワードが指定されていません。入力してください。");
+    return;
+  }
+
+  // データ初期化
+  repositories.value = [];
+  issues.value = [];
 
   search(selectedFile.value, searchWord);
 };
