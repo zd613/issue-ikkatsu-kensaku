@@ -10,11 +10,12 @@
         </div>
         <div v-else>{{ issue.state }}</div>
       </div>
-      <div>
-        <div>{{ issue.title }}</div>
-        <div>ステータス: {{ issue.state }}</div>
-        <div>createdAt: {{ formatCreatedAt }}</div>
-        <div>updatedAt: {{ formatUpdatedAt }}</div>
+      <div class="w-full">
+        <div class="font-bold text-xl text-gray-700">{{ issue.title }}</div>
+        <div class="text-gray-500 text-right mt-4 mr-2">
+          作成日: {{ formatCreatedAt }}
+        </div>
+        <!-- <div>updatedAt: {{ formatUpdatedAt }}</div> -->
         <!-- <div v-html="issue.body"></div> -->
       </div>
     </a>
