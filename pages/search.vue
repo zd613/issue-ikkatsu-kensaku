@@ -33,8 +33,13 @@
           <div class="my-6">
             <FileSelector v-model:file="selectedFile" />
           </div>
+
           <div class="mt-12 overflow-y-auto">
             <IssueList :issues="issues" v-if="issues.length > 0" />
+
+            <div>
+              <Loading :loading="isFetchingIssue" />
+            </div>
           </div>
         </div>
       </div>
@@ -55,9 +60,10 @@ import {
 const repositories = ref<RepositoryInfo[]>([]);
 const isFetchingRepository = ref(false);
 const issues = ref<IssueInfo[]>([]);
+const isFetchingIssue = ref(false);
 const search = async (file: File, searchWord: string) => {
   isFetchingRepository.value = true;
-
+  isFetchingIssue.value = true;
   // dependencisとdevDependencies取得
   const { dependencies, devDependencies } =
     await loadDependenciesAndDevDependencies(file);
@@ -93,6 +99,8 @@ const search = async (file: File, searchWord: string) => {
     searchWord,
     page
   );
+
+  isFetchingIssue.value = false;
 };
 const searchWord = ref("");
 const searchAndShowIssues = async (
