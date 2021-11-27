@@ -27,7 +27,7 @@
             <FileSelector v-model:file="selectedFile" />
           </div>
           <div class="mt-12 overflow-y-auto">
-            <IssueList :issues="issues" />
+            <IssueList :issues="issues" v-if="issues.length > 0" />
           </div>
         </div>
       </div>
