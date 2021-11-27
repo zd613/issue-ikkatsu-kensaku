@@ -11,17 +11,19 @@
       hover:shadow-2xl
     "
   >
-    <input
-      type="text"
-      placeholder="検索ワード"
-      v-model="internalSearchWord"
-      @keydown.enter="search"
-      class="bg-gray-100 focus:outline-none text-lg"
-      autocomplete="on"
-    />
-    <button @click="search">
-      <IconSearch class="teaxt-green-800" />
-    </button>
+    <div class="flex flex-row">
+      <input
+        type="text"
+        placeholder="検索ワード"
+        v-model="internalSearchWord"
+        @keydown.enter="search"
+        class="bg-gray-100 focus:outline-none text-lg"
+        autocomplete="on"
+      />
+      <button @click="search">
+        <IconSearch class="teaxt-green-800" />
+      </button>
+    </div>
   </div>
 </template>
 
