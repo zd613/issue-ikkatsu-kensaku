@@ -11,6 +11,7 @@
             :repositories="repositories"
             :active-index="selectedRepoIndex"
             @change:selected-repository="handleSelectedRepositoryChange"
+            v-if="repositories.length > 0"
           />
         </div>
       </div>
