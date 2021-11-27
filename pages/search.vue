@@ -38,7 +38,6 @@
 <script setup lang="ts">
 import { IssueInfo } from "~~/interfaces/issueInfo";
 import { RepositoryInfo } from "~~/interfaces/repositoryInfo";
-import FileSelector from "~~/components/FileSelector.vue";
 import {
   fetchIssues,
   fetchRegistryData,
