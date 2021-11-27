@@ -1,12 +1,27 @@
 <template>
-  <div class="border-4 border-green-500 p-2 inline-block">
+  <div
+    class="
+      border-2 border-gray-500
+      px-4
+      py-2
+      inline-block
+      bg-gray-100
+      rounded-3xl
+      shadow-xl
+      hover:shadow-2xl
+    "
+  >
     <input
       type="text"
       placeholder="検索ワード"
       v-model="internalSearchWord"
       @keydown.enter="search"
+      class="bg-gray-100 focus:outline-none text-lg"
+      autocomplete="on"
     />
-    <IconSearch class="cursor-pointer" @click="search" />
+    <button @click="search">
+      <IconSearch class="teaxt-green-800" />
+    </button>
   </div>
 </template>
 
