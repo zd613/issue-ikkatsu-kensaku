@@ -3,7 +3,7 @@
     <div class="flex flex-row h-full">
       <div class="w-64 p-3 h-full">
         <h1 class="font-bold text-2xl p-1 text-gray-800 my-4 flex-col">
-          Issue一括検索
+          <nuxt-link to="/">Issue一括検索</nuxt-link>
         </h1>
 
         <div class="overflow-y-auto h-3/5">
