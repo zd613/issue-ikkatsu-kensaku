@@ -13,6 +13,12 @@
             @change:selected-repository="handleSelectedRepositoryChange"
             v-if="repositories.length > 0"
           />
+          <div class="flex justify-center items-center">
+            <Loading
+              :loading="isFetchingRepository"
+              class="mx-auto inline-block"
+            />
+          </div>
         </div>
       </div>
 
@@ -47,8 +53,11 @@ import {
 
 // 検索を実行する
 const repositories = ref<RepositoryInfo[]>([]);
+const isFetchingRepository = ref(false);
 const issues = ref<IssueInfo[]>([]);
 const search = async (file: File, searchWord: string) => {
+  isFetchingRepository.value = true;
+
   // dependencisとdevDependencies取得
   const { dependencies, devDependencies } =
     await loadDependenciesAndDevDependencies(file);
@@ -72,6 +81,7 @@ const search = async (file: File, searchWord: string) => {
       firstRegistryData = registryData;
     }
   }
+  isFetchingRepository.value = false;
   // リポジトリ名を検索
 
   console.log(firstRegistryData);
