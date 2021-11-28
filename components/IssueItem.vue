@@ -1,6 +1,6 @@
 <template>
   <div class="border border-gray-800 p-2">
-    <a :href="issue.url" target="_blank" class="flex flex-row">
+    <div class="flex flex-row w-96">
       <div class="flex-shrink-0 w-12 flex justify-center items-center">
         <div v-if="issue.state === 'open'">
           <IconIssueOpen class="text-green-500" />
@@ -12,17 +12,43 @@
       </div>
       <div class="w-full">
         <div class="font-bold text-xl text-gray-700">{{ issue.title }}</div>
-        <div class="text-gray-500 text-right mt-4 mr-2">
+        <div class="text-gray-800 text-right mt-4 mr-2">
           作成日: {{ formatCreatedAt }}
         </div>
-        <div>
-          <MarkdownViewer :source="issue.body" />
+        <div class="mt-4">
+          <div
+            class="
+              text-gray-500
+              font-semibold
+              text-xl
+              bg-white
+              inline-block
+              p-1
+              shadow-lg
+              border-2 border-blue-400
+              rounded
+            "
+          >
+            Issue内容
+            <div class="inline-block">
+              <button @click="toggle">
+                <IconDown v-if="isOpen" />
+                <IconUp v-else />
+              </button>
+            </div>
+          </div>
+          <div
+            class="mt-2 bg-white p-2 border border-blue-300 rounded"
+            v-if="isOpen"
+          >
+            <MarkdownViewer :source="issue.body" class="w-32" />
+          </div>
         </div>
         <!-- {{ issue.body }} -->
         <!-- <div>updatedAt: {{ formatUpdatedAt }}</div> -->
         <!-- <div v-html="issue.body"></div> -->
       </div>
-    </a>
+    </div>
   </div>
 </template>
 
@@ -30,6 +56,12 @@
 import { IssueInfo } from "~~/interfaces/issueInfo";
 import { format } from "date-fns";
 import MarkdownViewer from "./MarkdownViewer.vue";
+
+// issue内容を表示するかどうか
+const isOpen = ref(true);
+function toggle() {
+  isOpen.value = !isOpen.value;
+}
 
 const props = defineProps<{
   issue: IssueInfo;
