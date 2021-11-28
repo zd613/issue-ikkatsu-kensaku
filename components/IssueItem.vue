@@ -21,37 +21,35 @@
           </a>
         </div>
         <div class="mt-4">
-          <div
-            class="
-              text-gray-500
-              font-semibold
-              text-xl
-              bg-white
-              inline-block
-              p-1
-              shadow-lg
-              border-2 border-blue-400
-              rounded
-            "
-          >
-            Issue内容
-            <div class="inline-block">
-              <button @click="toggle">
-                <IconDown v-if="isOpen" />
-                <IconUp v-else />
-              </button>
+          <div class="mt-2 bg-white border border-blue-300 rounded">
+            <button class="block w-full" @click="toggle">
+              <div
+                class="
+                  text-gray-800
+                  font-semibold
+                  text-xl
+                  bg-blue-100
+                  w-full
+                  px-4
+                  py-1
+                  flex
+                  justify-between
+                  items-center
+                "
+              >
+                Issue内容
+                <div class="bg-white rounded text-blue-600">
+                  <IconDown v-if="isOpen" />
+                  <IconUp v-else />
+                </div>
+              </div>
+            </button>
+            <div v-if="isOpen" class="p-2">
+              <MarkdownViewer :source="issue.body" class="w-96" />
             </div>
           </div>
-          <div
-            class="mt-2 bg-white p-2 border border-blue-300 rounded"
-            v-if="isOpen"
-          >
-            <MarkdownViewer :source="issue.body" class="w-64" />
-          </div>
         </div>
-        <!-- {{ issue.body }} -->
         <!-- <div>updatedAt: {{ formatUpdatedAt }}</div> -->
-        <!-- <div v-html="issue.body"></div> -->
       </div>
     </div>
   </div>
