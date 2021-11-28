@@ -15,6 +15,10 @@
         <div class="text-gray-500 text-right mt-4 mr-2">
           作成日: {{ formatCreatedAt }}
         </div>
+        <div>
+          <MarkdownViewer :source="issue.body" />
+        </div>
+        <!-- {{ issue.body }} -->
         <!-- <div>updatedAt: {{ formatUpdatedAt }}</div> -->
         <!-- <div v-html="issue.body"></div> -->
       </div>
@@ -25,6 +29,7 @@
 <script setup lang="ts">
 import { IssueInfo } from "~~/interfaces/issueInfo";
 import { format } from "date-fns";
+import MarkdownViewer from "./MarkdownViewer.vue";
 
 const props = defineProps<{
   issue: IssueInfo;
