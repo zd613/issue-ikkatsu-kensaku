@@ -1,7 +1,7 @@
 <template>
   <div class="bg-blue-200 h-screen">
     <div class="flex flex-row h-full">
-      <div class="w-64 p-3 h-full">
+      <div class="w-64 p-3 h-full border-r-4 border-blue-300">
         <h1 class="font-bold text-2xl p-1 text-gray-800 my-4 flex-col">
           <nuxt-link to="/">Issue一括検索</nuxt-link>
         </h1>
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <div class="w-full h-full p-3">
+      <div class="w-full h-full p-3 bg-blue-100">
         <div
           class="flex flex-col items-center justify-start w-4/5 h-full mx-auto"
         >
