@@ -1,6 +1,6 @@
 <template>
   <div class="border border-gray-800 p-2">
-    <div class="flex flex-row w-96">
+    <div class="flex flex-row w-4/5">
       <div class="flex-shrink-0 w-12 flex justify-center items-center">
         <div v-if="issue.state === 'open'">
           <IconIssueOpen class="text-green-500" />
@@ -14,6 +14,11 @@
         <div class="font-bold text-xl text-gray-700">{{ issue.title }}</div>
         <div class="text-gray-800 text-right mt-4 mr-2">
           作成日: {{ formatCreatedAt }}
+        </div>
+        <div>
+          <a :href="issue.url" target="_blank">
+            <IconExternalLink class="text-gray-700 hover:text-blue-500" />
+          </a>
         </div>
         <div class="mt-4">
           <div
@@ -41,7 +46,7 @@
             class="mt-2 bg-white p-2 border border-blue-300 rounded"
             v-if="isOpen"
           >
-            <MarkdownViewer :source="issue.body" class="w-32" />
+            <MarkdownViewer :source="issue.body" class="w-64" />
           </div>
         </div>
         <!-- {{ issue.body }} -->
@@ -56,6 +61,7 @@
 import { IssueInfo } from "~~/interfaces/issueInfo";
 import { format } from "date-fns";
 import MarkdownViewer from "./MarkdownViewer.vue";
+import IconExternalLink from "./IconExternalLink.vue";
 
 // issue内容を表示するかどうか
 const isOpen = ref(true);
