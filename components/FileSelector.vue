@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  file: File | null;
+  file?: File | null;
 }>();
 
 const emit = defineEmits<{
