@@ -12,4 +12,8 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  publicRuntimeConfig: {
+    gaMeasurementId: process.env.GA_MEAUREMENT_ID,
+  },
 });
