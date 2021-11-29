@@ -18,21 +18,7 @@
               <FileSelector @change="handleFileChange" />
             </div>
             <div>
-              <SearchBox v-model="searchWord" @click="searchIssues" />
-            </div>
-
-            <div v-if="dep !== ''">
-              {{ dep }}
-            </div>
-            <div class="bg-gray-100">
-              <div v-for="(item, index) in issues" :key="index">
-                <a :href="item.html_url" target="_blank">
-                  <div class="inline-block">
-                    {{ item.title }}
-                  </div>
-                  <div class="inline">({{ item.state }})</div>
-                </a>
-              </div>
+              <SearchBox v-model="searchWord" @search="searchIssues" />
             </div>
           </div>
         </div>
@@ -44,17 +30,8 @@
 </template>
 
 <script lang="ts" setup>
-import { loadText, fetchRegistryData, fetchIssues } from "@/lib/search";
-
-interface IssueItem {
-  html_url: string;
-  title: string;
-  state: string;
-}
-
-const issues = ref([] as IssueItem[]);
-
-const dep = ref("");
+import { loadText, fetchRegistryData } from "@/lib/search";
+const router = useRouter();
 
 const searchWord = ref("");
 
@@ -70,14 +47,22 @@ async function handleFileChange(event: Event) {
 }
 
 async function searchIssues() {
+  console.log("HHH");
   const file = selectedPackagejson.value;
   if (!file) {
     alert("package.jsonを選択してください。");
     return;
   }
 
+  router.push({
+    path: "search",
+    query: {
+      q: searchWord.value,
+    },
+  });
+  return;
+
   // json読み込み(package.json想定)
-  // TODO: 型調べる
   const text = await loadText(file as File);
   const json = JSON.parse(text);
 
@@ -85,25 +70,9 @@ async function searchIssues() {
   const dependencies = json.dependencies;
 
   for (const [libName, version] of Object.entries(dependencies)) {
-    console.log(libName + ":" + version);
-    dep.value = libName + ":" + version;
-
     // npm のregistryから探す
     const { owner, repoName } = await fetchRegistryData(libName);
     console.log({ owner, repoName });
-
-    // issueを取得する
-    let page = 1;
-    // let word = 'test' // 検索ワード
-
-    const word = searchWord.value;
-    const issuesData = await fetchIssues(owner, repoName, word, page);
-    console.log(issuesData);
-
-    issues.value = issuesData.items;
-
-    // １個だけで試す
-    break;
   }
 }
 </script>
