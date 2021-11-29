@@ -3,8 +3,14 @@ import VueGtag from "vue-gtag";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
-
-  nuxtApp.vueApp.use(VueGtag, {
-    config: { id: config.gaMeasurementId || "" },
-  });
+  const router = nuxtApp.vueApp.$nuxt.$router;
+  nuxtApp.vueApp.use(
+    VueGtag,
+    {
+      config: {
+        id: config.gaMeasurementId || "",
+      },
+    },
+    router
+  );
 });
