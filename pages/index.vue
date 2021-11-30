@@ -54,25 +54,33 @@ async function searchIssues() {
     return;
   }
 
-  router.push({
-    path: "search",
-    query: {
-      q: searchWord.value,
-    },
-  });
-  return;
-
   // json読み込み(package.json想定)
   const text = await loadText(file as File);
   const json = JSON.parse(text);
 
-  // package.jsonのdependenciesを取得する
   const dependencies = json.dependencies;
+  const devDependencies = json.devDependencies;
+  console.log(dependencies);
+  console.log(devDependencies);
 
-  for (const [libName, version] of Object.entries(dependencies)) {
-    // npm のregistryから探す
-    const { owner, repoName } = await fetchRegistryData(libName);
-    console.log({ owner, repoName });
-  }
+  router.push({
+    path: "search",
+    query: {
+      q: searchWord.value,
+      dependencies: JSON.stringify(dependencies),
+      devDependencies: JSON.stringify(devDependencies),
+    },
+  });
+
+  return;
+
+  // package.jsonのdependenciesを取得する
+  // const dependencies = json.dependencies;
+
+  // for (const [libName, version] of Object.entries(dependencies)) {
+  //   // npm のregistryから探す
+  //   const { owner, repoName } = await fetchRegistryData(libName);
+  //   console.log({ owner, repoName });
+  // }
 }
 </script>

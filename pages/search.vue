@@ -57,7 +57,13 @@ import {
 } from "~~/lib/search";
 
 const route = useRoute();
-console.log(route.query);
+
+const dependenciesFromQuery = JSON.parse(route.query.dependencies as string);
+const devDependenciesFromQuery = JSON.parse(
+  route.query.devDependencies as string
+);
+console.log(dependenciesFromQuery);
+console.log(devDependenciesFromQuery);
 
 // 検索を実行する
 const repositories = ref<RepositoryInfo[]>([]);
