@@ -56,6 +56,9 @@ import {
   loadDependenciesAndDevDependencies,
 } from "~~/lib/search";
 
+const route = useRoute();
+console.log(route.query);
+
 // 検索を実行する
 const repositories = ref<RepositoryInfo[]>([]);
 const isFetchingRepository = ref(false);
@@ -102,7 +105,7 @@ const search = async (file: File, searchWord: string) => {
 
   isFetchingIssue.value = false;
 };
-const searchWord = ref("");
+const searchWord = ref(route.query.q);
 const searchAndShowIssues = async (
   owner: string,
   repoName: string,
