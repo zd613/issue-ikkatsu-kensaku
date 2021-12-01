@@ -70,12 +70,14 @@ const repositories = ref<RepositoryInfo[]>([]);
 const isFetchingRepository = ref(false);
 const issues = ref<IssueInfo[]>([]);
 const isFetchingIssue = ref(false);
-const search = async (file: File, searchWord: string) => {
+
+const searchFromPackageDependencies = async (
+  dependencies: Record<string, string>,
+  devDependencies: Record<string, string>,
+  searchWord: string
+) => {
   isFetchingRepository.value = true;
   isFetchingIssue.value = true;
-  // dependencisとdevDependencies取得
-  const { dependencies, devDependencies } =
-    await loadDependenciesAndDevDependencies(file);
 
   console.log(dependencies);
   console.log(devDependencies);
@@ -111,7 +113,15 @@ const search = async (file: File, searchWord: string) => {
 
   isFetchingIssue.value = false;
 };
-const searchWord = ref(route.query.q);
+
+const search = async (file: File, searchWord: string) => {
+  // dependencisとdevDependencies取得
+  const { dependencies, devDependencies } =
+    await loadDependenciesAndDevDependencies(file);
+
+  searchFromPackageDependencies(dependencies, devDependencies, searchWord);
+};
+const searchWord = ref(route.query.q as string);
 const searchAndShowIssues = async (
   owner: string,
   repoName: string,
@@ -178,4 +188,17 @@ const handleSelectedRepositoryChange = async (repoName: string) => {
   const page = 1;
   await searchAndShowIssues(owner, name, searchWord.value, page);
 };
+
+if (
+  Object.keys(dependenciesFromQuery).length > 0 ||
+  Object.keys(devDependenciesFromQuery).length > 0
+) {
+  // 前のページから遷移しているので検索を実行する
+  // async function
+  searchFromPackageDependencies(
+    dependenciesFromQuery,
+    devDependenciesFromQuery,
+    searchWord.value
+  );
+}
 </script>
