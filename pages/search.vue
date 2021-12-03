@@ -27,11 +27,9 @@
           class="flex flex-col items-center justify-start w-4/5 h-full mx-auto"
         >
           <h2 class="font-bold text-3xl text-gray-800">検索結果</h2>
-          <div class="my-2">
-            <SearchBox @search="handleSearch" v-model="searchWord" />
-          </div>
-          <div class="my-6">
+          <div class="flex items-center space-x-8 mt-4">
             <FileSelector v-model:file="selectedFile" />
+            <SearchBox @search="handleSearch" v-model="searchWord" />
           </div>
 
           <div class="mt-12 overflow-y-auto">
