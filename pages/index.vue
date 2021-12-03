@@ -63,6 +63,14 @@ async function searchIssues() {
   console.log(dependencies);
   console.log(devDependencies);
 
+  // dependenciesが存在するかチェック
+  if (dependencies === undefined && devDependencies === undefined) {
+    alert(
+      "dependencies or devDependenciesが見つかりませんでした。\ndependenciesを含んでいるpackage.jsonを指定してください。"
+    );
+    return;
+  }
+
   router.push({
     path: "search",
     query: {
