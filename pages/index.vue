@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { loadText, fetchRegistryData } from "@/lib/search";
+import { loadText } from "@/lib/search";
 const router = useRouter();
 
 const searchWord = ref("");
@@ -47,7 +47,6 @@ async function handleFileChange(event: Event) {
 }
 
 async function searchIssues() {
-  console.log("HHH");
   const file = selectedPackagejson.value;
   if (!file) {
     alert("package.jsonを選択してください。");
@@ -71,6 +70,7 @@ async function searchIssues() {
     return;
   }
 
+  // 検索ページへ遷移
   router.push({
     path: "search",
     query: {
@@ -79,16 +79,5 @@ async function searchIssues() {
       devDependencies: JSON.stringify(devDependencies),
     },
   });
-
-  return;
-
-  // package.jsonのdependenciesを取得する
-  // const dependencies = json.dependencies;
-
-  // for (const [libName, version] of Object.entries(dependencies)) {
-  //   // npm のregistryから探す
-  //   const { owner, repoName } = await fetchRegistryData(libName);
-  //   console.log({ owner, repoName });
-  // }
 }
 </script>
