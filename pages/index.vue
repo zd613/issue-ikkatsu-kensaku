@@ -6,18 +6,18 @@
       <article>
         <div class="bg-blue-200 min-h-screen flex justify-center items-center">
           <div class="flex flex-col">
-            <h1 class="text-5xl font-semibold text-gray-800 -mt-32">
+            <h1 class="text-5xl font-semibold text-gray-800 -mt-32 text-center">
               Issue一括検索
             </h1>
 
-            <div class="mt-12">
+            <div class="mt-12 p-2">
               <p>package.jsonに含まれているパッケージからissueを検索します。</p>
             </div>
 
-            <div class="flex flex-row">
+            <div class="flex justify-center">
               <FileSelector @change="handleFileChange" />
             </div>
-            <div>
+            <div class="flex justify-center mt-4">
               <SearchBox v-model="searchWord" @search="searchIssues" />
             </div>
           </div>
