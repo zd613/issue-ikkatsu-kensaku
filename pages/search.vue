@@ -85,7 +85,16 @@ const searchFromPackageDependencies = async (
   for (const [libName, libVersion] of Object.entries(dependencies)) {
     libraryName = libName;
     // TODO: ライブラリのバージョンも考慮する？
-    const registryData = await fetchRegistryData(libraryName);
+    // const registryData = await fetchRegistryData(libraryName);
+    // TODO: refresh やerrorなどの処理
+    const { data: registryDataStr } = await useFetch("/api/registry", {
+      params: {
+        libraryName,
+      },
+    });
+    const registryData = JSON.parse(registryDataStr.value);
+    console.log("registryData");
+    console.log(registryData);
 
     repositories.value.push({
       name: `${registryData.owner}/${registryData.repoName}`,
