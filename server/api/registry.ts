@@ -1,16 +1,15 @@
 import axios from "axios";
 import type { IncomingMessage, ServerResponse } from "http";
 import url from "url";
+
 // npm.jsのregistry情報を取得する
 export async function fetchRegistryData(libraryName: string) {
   const endpoint = `https://registry.npmjs.org/${libraryName}/latest`;
-  console.log(endpoint);
   const { data } = await axios.get(endpoint);
-  console.log("donw");
   const version = data.version;
   const repository = data.repository as { type: string; url: string };
-  console.log(version);
-  console.log(repository);
+  // console.log(version);
+  // console.log(repository);
   if (repository.type === "git") {
     const tmp = repository.url;
     // urlになってないので直す
@@ -40,9 +39,9 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
   // TODO: libraryName存在チェック
   // TODO: string string[]解消
   const libraryName = query.libraryName as string;
-  console.log(libraryName);
+  // console.log(libraryName);
   const { owner, repoName } = await fetchRegistryData(libraryName);
-  console.log(owner, repoName);
+  // console.log(owner, repoName);
   return JSON.stringify({
     owner,
     repoName,

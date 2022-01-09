@@ -2,7 +2,6 @@ import axios from "axios";
 
 export function loadText(file: File): Promise<string> {
   const reader = new FileReader();
-  console.log("hi");
   return new Promise((resolve) => {
     reader.onload = (event) => {
       console.log("file loaded");
